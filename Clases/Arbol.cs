@@ -52,5 +52,100 @@ namespace Clases
                 InOrden(raiz.der);
             }
         }
+        public void buscar(Persona p)
+        {
+            Buscar(raiz_principal, p);
+        }
+        private void Buscar(Nodo raiz, Persona p)
+        {
+            if (raiz == null)
+            {
+                Console.WriteLine("Elemento no encontrado");
+            }
+            else
+            {
+                if (p < raiz.dato)
+                {
+                    Buscar(raiz.izq, p);
+                }
+                else if (p > raiz.dato)
+                {
+                    Buscar(raiz.der, p);
+                }
+                else
+                {
+                    Console.WriteLine(raiz.dato);
+                }
+            }
+        }
+        public void eliminar(Persona p)
+        {
+            Eliminar(ref raiz_principal, p);
+        }
+        private void Eliminar(ref Nodo raiz, Persona p)
+        {
+            if (raiz == null)
+            {
+                Console.WriteLine("Elemento no encontrado");
+            }
+            else
+            {
+                if (p < raiz.dato)
+                {
+                    Eliminar(ref raiz.izq, p);
+                }
+                else if (p > raiz.dato)
+                {
+                    Eliminar(ref raiz.der, p);
+                }
+                else
+                {
+                    if (raiz.izq==null && raiz.der==null)
+                    {
+                        raiz = null;
+                    }
+                    else if (raiz.izq!=null && raiz.der==null)
+                    {
+                        Nodo temp = BuscarMayor(raiz.izq);
+
+                        Persona aux = raiz.dato;
+                        raiz.dato = temp.dato;
+                        temp.dato = aux;
+
+                        Eliminar(ref raiz.izq,p);
+                    } else
+                    {
+                        Nodo temp = BuscarMenor(raiz.der);
+
+                        Persona aux = raiz.dato;
+                        raiz.dato = temp.dato;
+                        temp.dato = aux;
+
+                        Eliminar(ref raiz.der, p);
+                    }
+                }
+            }
+        }
+        private Nodo BuscarMayor(Nodo raiz)
+        {
+            if (raiz.der != null)
+            {
+                return BuscarMayor(raiz.der);
+            }
+            else
+            {
+                return raiz;
+            }
+        }
+        private Nodo BuscarMenor(Nodo raiz)
+        {
+            if (raiz.izq == null)
+            {
+                return raiz;
+            } else
+            {
+                return BuscarMenor(raiz.izq);
+            }
+        }
     }
 }

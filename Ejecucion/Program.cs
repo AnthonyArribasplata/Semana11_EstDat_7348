@@ -28,6 +28,12 @@ namespace Ejecucion
             p3.edad = 30;
             abb.insertar(p3);
 
+
+            Persona pe= new Persona();
+            pe.nombre = "Jhon Doe";
+
+            abb.eliminar(pe);
+
             abb.inOrden();
         }
     }
